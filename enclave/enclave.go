@@ -179,10 +179,10 @@ func (s *SecureEnclave) store(
 			"Unable to load recipient, %v", err)
 	}
 
-	sharedKey := s.resolveSharedKey(senderPrivKey, senderPubKey, recipientKey)
-
-	sealedBox := sealPayload(epl.RecipientNonce, masterKey, sharedKey)
-	epl.RecipientBoxes = [][]byte{ sealedBox }
+	//sharedKey := s.resolveSharedKey(senderPrivKey, senderPubKey, recipientKey)
+	//
+	//sealedBox := sealPayload(epl.RecipientNonce, masterKey, sharedKey)
+	//epl.RecipientBoxes = [][]byte{ sealedBox }
 
 	encodedEpl := api.EncodePayloadWithRecipients(epl, recipients)
 	digest, err := s.storePayload(epl, encodedEpl)
