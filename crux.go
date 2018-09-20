@@ -121,8 +121,10 @@ func main() {
 		privKeyFiles[i] = path.Join(workDir, keyFile)
 	}
 
+	log.Printf("The pub keys are ")
 	for i, keyFile := range pubKeyFiles {
 		pubKeyFiles[i] = path.Join(workDir, keyFile)
+		log.Printf("%s", pubKeyFiles[i])
 	}
 
 	enc := enclave.Init(db, pubKeyFiles, privKeyFiles, pi, http.DefaultClient, grpc)
