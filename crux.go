@@ -106,8 +106,10 @@ func main() {
 
 	pi := api.InitPartyInfo(url, otherNodes, httpClient, grpc)
 
-	privKeyFiles := config.GetStringSlice(config.PrivateKeys)
-	pubKeyFiles := config.GetStringSlice(config.PublicKeys)
+	privKeys := config.GetString(config.PrivateKeys)
+	pubKeys := config.GetString(config.PublicKeys)
+	pubKeyFiles := strings.Split(pubKeys, ",")
+	privKeyFiles := strings.Split(privKeys, ",")
 
 	if len(privKeyFiles) != len(pubKeyFiles) {
 		log.Fatalln("Private keys provided must have corresponding public keys")
@@ -121,7 +123,7 @@ func main() {
 		privKeyFiles[i] = path.Join(workDir, keyFile)
 	}
 
-	log.Printf("The pub keys are ")
+	log.Printf("The pub keys of length are %d", len(pubKeyFiles))
 	for i, keyFile := range pubKeyFiles {
 		pubKeyFiles[i] = path.Join(workDir, keyFile)
 		log.Printf("%s", pubKeyFiles[i])
