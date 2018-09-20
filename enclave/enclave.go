@@ -186,8 +186,10 @@ func (s *SecureEnclave) store(
 	encodedEpl := api.EncodePayloadWithRecipients(epl, recipients)
 	digest, err := s.storePayload(epl, encodedEpl)
 
+	log.Printf("The length of recipient box is %d and total recipients are %d", len(epl.RecipientBoxes), len(recipients))
 	if !toSelf {
 		for i, recipient := range recipients {
+			log.Printf("The current iteration is %d", i)
 			recipientEpl := api.EncryptedPayload{
 				Sender:         senderPubKey,
 				CipherText:     epl.CipherText,
