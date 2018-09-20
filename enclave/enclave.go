@@ -162,6 +162,7 @@ func (s *SecureEnclave) store(
 
 		epl.RecipientBoxes[i] = sealedBox
 	}
+	log.Printf("The length of recipient box is %d and total recipients are %d", len(epl.RecipientBoxes), len(recipients))
 
 	var toSelf bool
 	if len(recipients) == 0 {
