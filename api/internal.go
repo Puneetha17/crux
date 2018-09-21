@@ -90,7 +90,7 @@ func CreatePartyInfo(
 func (s *PartyInfo) RegisterPublicKeys(pubKeys []nacl.Key) {
 	for _, pubKey := range pubKeys {
 		s.recipients[*pubKey] = s.url
-		log.Printf("Registered %s with %s", *pubKey, s.url)
+		//log.Printf("Registered %s with %s", *pubKey, s.url)
 	}
 }
 
@@ -98,9 +98,9 @@ func (s *PartyInfo) GetPartyInfoGrpc() {
 	recipients := make(map[string][]byte)
 	for key, url := range s.recipients{
 		recipients[url] = key[:]
-		log.Printf("The recipients in getpartyinfo are %s for %s", url, key[:])
+		//log.Printf("The recipients in getpartyinfo are %s for %s", url, key[:])
 	}
-	log.Printf("---------------------------")
+	//log.Printf("---------------------------")
 	urls := make(map[string]bool)
 	for k, v := range s.parties {
 		urls[k] = v
