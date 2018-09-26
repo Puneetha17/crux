@@ -1,27 +1,27 @@
 package config
 
 import (
+	"fmt"
+	log "github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
-	"fmt"
 	"os"
-	log "github.com/sirupsen/logrus"
 )
 
 const (
-	OrgName = "org-name"
+	OrgName     = "org-name"
 	CountryCode = "country-code"
-	Province = "province"
-	Locality = "locality"
-	Address = "address"
-	PostalCode = "postal-code"
+	Province    = "province"
+	Locality    = "locality"
+	Address     = "address"
+	PostalCode  = "postal-code"
 
-	ValidityYears = "validity-years"
+	ValidityYears  = "validity-years"
 	ValidityMonths = "validity-months"
-	ValidityDays = "validity-days"
+	ValidityDays   = "validity-days"
 
-	IsCA = "is-ca"
-	KeyBits = "key-bits"
+	IsCA     = "is-ca"
+	KeyBits  = "key-bits"
 	FileName = "filename"
 )
 
@@ -48,7 +48,7 @@ func CertInitFlags() {
 
 	flags.Bool(IsCA, true, "Is Certificate Authority")
 
-	v.BindPFlags(flags)  // Binding the flags to test the initial configuration
+	v.BindPFlags(flags) // Binding the flags to test the initial configuration
 }
 
 // CertUsage prints usage instructions to the console.
@@ -90,5 +90,3 @@ func CertGetString(key string) string {
 func CertGetStringSlice(key string) []string {
 	return v.GetStringSlice(key)
 }
-
-

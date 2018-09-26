@@ -6,12 +6,12 @@ import (
 	"crypto/x509"
 	"crypto/x509/pkix"
 	"encoding/pem"
-	log "github.com/sirupsen/logrus"
+	"fmt"
 	"github.com/blk-io/crux/config"
+	log "github.com/sirupsen/logrus"
 	"math/big"
 	"os"
 	"time"
-	"fmt"
 )
 
 func CertGen(configFile string) error {
@@ -37,8 +37,8 @@ func CertGen(configFile string) error {
 			StreetAddress: config.CertGetStringSlice(config.Address),
 			PostalCode:    config.CertGetStringSlice(config.PostalCode),
 		},
-		NotBefore:             time.Now(),
-		NotAfter:              time.Now().AddDate(
+		NotBefore: time.Now(),
+		NotAfter: time.Now().AddDate(
 			config.CertGetInt(config.ValidityYears),
 			config.CertGetInt(config.ValidityMonths),
 			config.CertGetInt(config.ValidityDays)),
@@ -71,7 +71,7 @@ func CertGen(configFile string) error {
 	certOut.Close()
 
 	// Private key
-	keyOut, err := os.OpenFile (
+	keyOut, err := os.OpenFile(
 		fmt.Sprintf("%s.key", config.CertGetString(config.FileName)),
 		os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0600)
 	if err != nil {

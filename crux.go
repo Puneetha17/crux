@@ -1,16 +1,16 @@
 package main
 
 import (
-	"os"
-	"path"
-	"net/http"
-	"strings"
 	"github.com/blk-io/crux/api"
 	"github.com/blk-io/crux/config"
 	"github.com/blk-io/crux/enclave"
 	"github.com/blk-io/crux/server"
 	"github.com/blk-io/crux/storage"
 	log "github.com/sirupsen/logrus"
+	"net/http"
+	"os"
+	"path"
+	"strings"
 	"time"
 )
 
@@ -66,7 +66,7 @@ func main() {
 	}
 	genCert := config.GetString(config.GenerateCert)
 	if genCert != "" {
-		if !strings.Contains(genCert, ".conf"){
+		if !strings.Contains(genCert, ".conf") {
 			log.Errorf("A Configuration file(.conf) must be used to generate Certificates")
 			os.Exit(1)
 		} else {
@@ -97,7 +97,7 @@ func main() {
 	defer db.Close()
 
 	allOtherNodes := config.GetString(config.OtherNodes)
-	otherNodes :=strings.Split(allOtherNodes, ",")
+	otherNodes := strings.Split(allOtherNodes, ",")
 	url := config.GetString(config.Url)
 	if url == "" {
 		log.Fatalln("URL must be specified")
