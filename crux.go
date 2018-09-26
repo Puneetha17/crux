@@ -34,7 +34,13 @@ func main() {
 	}
 	config.ParseCommandLine()
 
-	verbosity := config.GetInt(config.Verbosity)
+	verbosity := 1
+	if config.GetInt(config.Verbosity) > config.GetInt(config.VerbosityShorthand) {
+		verbosity = config.GetInt(config.Verbosity)
+	} else {
+		verbosity = config.GetInt(config.VerbosityShorthand)
+	}
+
 	var level log.Level
 
 	switch verbosity {
@@ -90,7 +96,8 @@ func main() {
 	}
 	defer db.Close()
 
-	otherNodes := config.GetStringSlice(config.OtherNodes)
+	allOtherNodes := config.GetString(config.OtherNodes)
+	otherNodes :=strings.Split(allOtherNodes, ",")
 	url := config.GetString(config.Url)
 	if url == "" {
 		log.Fatalln("URL must be specified")
@@ -106,8 +113,10 @@ func main() {
 
 	pi := api.InitPartyInfo(url, otherNodes, httpClient, grpc)
 
-	privKeyFiles := config.GetStringSlice(config.PrivateKeys)
-	pubKeyFiles := config.GetStringSlice(config.PublicKeys)
+	privKeys := config.GetString(config.PrivateKeys)
+	pubKeys := config.GetString(config.PublicKeys)
+	pubKeyFiles := strings.Split(pubKeys, ",")
+	privKeyFiles := strings.Split(privKeys, ",")
 
 	if len(privKeyFiles) != len(pubKeyFiles) {
 		log.Fatalln("Private keys provided must have corresponding public keys")
